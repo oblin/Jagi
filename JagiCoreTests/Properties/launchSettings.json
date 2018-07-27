@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "JagiCoreTests": {
+      "commandName": "Project",
+      "workingDirectory": "C:\\Users\\yiming\\source\\repos\\JagiCore\\src\\JagiCoreTests"
+    }
+  }
+}

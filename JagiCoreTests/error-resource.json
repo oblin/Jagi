@@ -1,0 +1,5 @@
+﻿{
+  "NotNull": "不可以是 Null",
+  "Null": "必須要是 Null",
+  "NotSet": "沒有設定"
+}
