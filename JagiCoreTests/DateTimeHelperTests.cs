@@ -34,6 +34,7 @@ namespace JagiCoreTests
             Assert.Equal("105/02/29", chineseDateString);
         }
 
+        [Fact]
         public void Convert_DateTime_Nullable_To_Standard_String()
         {
             var date = new DateTime(2016, 2, 29);
@@ -46,12 +47,12 @@ namespace JagiCoreTests
             Assert.True(string.IsNullOrEmpty(dateString));
         }
 
+        [Fact]
         public void DateTime_To_Standard_String()
         {
-            var date = new DateTime(2016, 2, 29);
-            var dateString = date.ToString();
+            string dateString = "1070101";
 
-            Assert.Equal("2016/02/29", dateString);
+            Assert.Equal(new DateTime(2018, 1, 1), dateString.ConvertChineseToDateTime());
         }
     }
 }
