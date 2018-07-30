@@ -13,10 +13,10 @@ namespace JagiCore.Angular
         private const string buttonsHtml =
             "<p>\n" +
             "	<button class=\"btn btn-primary\" type=\"submit\"\n" +
-            "			[disabled]=\"form.pristine || form.invalid\" [faIcon]=\"'fa-save'\">\n" +
+            "			[disabled]=\"form.pristine || form.invalid\">\n" +
             "		存檔\n" +
             "	</button>\n" +
-            "	<button class=\"btn btn-warning\" (click)=\"cancel(form)\" type=\"button\" [faIcon]=\"'fa-undo'\">\n" +
+            "	<button class=\"btn btn-warning\" (click)=\"cancel(form)\" type=\"button\">\n" +
             "		取消\n" +
             "	</button>\n" +
             "</p>\n";

@@ -31,12 +31,12 @@ namespace JagiCore.Angular
         /// {2}: model name
         /// {3}: validations (所有檢查的項目都放在一起)
         /// {4}: Label Name (display name)
-        /// {5}: Tooltip: validation message (所有錯誤訊息都放在一起）
+        /// {5}: Tooltip: validation message (所有錯誤訊息都放在一起）(暫時取消)
         /// {6}: form-group width
         /// {7}: label width
         /// {8}: control width
         /// {9}: placeholder="...."
-        /// {10}: Tooltip Enable: 設定何時要啟動 tooltip
+        /// {10}: Tooltip Enable: 設定何時要啟動 tooltip (暫時取消)
         /// {11}: pattern: Date pattern
         /// {12}: form-group required class
         /// </summary>
@@ -47,7 +47,7 @@ namespace JagiCore.Angular
             "		<div class=\"input-group\">\n" +
             "			<input id=\"{0}\" name=\"{1}\" class=\"form-control\" type=\"text\" {9}\n" +
             "				   #{0}=\"ngModel\" bsDatepicker #db{1}=\"bsDatepicker\" {3} \n" +
-            "				   [ngModel]=\"{2}.{1}\" (ngModelChange)=\"{2}.{1} = dateFormat($event)\" {5} {10} />\n" +
+            "				   [ngModel]=\"{2}.{1}\" (ngModelChange)=\"{2}.{1} = dateFormat($event)\" />\n" +
             "           <span class=\"input-group-btn\">" +
             "			    <button type=\"button\" (click)=\"db{1}.toggle()\" class=\"btn btn-default\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\n" +
             "           </span>" +

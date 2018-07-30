@@ -41,7 +41,7 @@ namespace JagiCore.Helpers
 
                 var property = T.GetType().GetProperties().FirstOrDefault(p => p.Name == pS.Name);
 
-                if (property != null)
+                if (property != null && property.SetMethod.IsPublic)
                     (property.GetSetMethod()).Invoke(T, new object[] { pS.GetGetMethod().Invoke(S, null) });
             }
         }

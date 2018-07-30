@@ -83,7 +83,7 @@ namespace JagiCoreTests
                 lineOfHtml[3]);
             // Assert.Equal("			   #firstName=\"ngModel\" ",
             //     lineOfHtml[4]);
-            Assert.Equal("			   [(ngModel)]=\"model.FirstName\" tooltip=\"此為必須輸入的欄位，且不可以超過30個字\" [tooltipEnable]=\"firstName.invalid\" />",
+            Assert.Equal("			   [(ngModel)]=\"model.FirstName\" />",
                 lineOfHtml[5]);
             // 4-19 移除 validate-span
             //Assert.Equal("		<validate-span [controlVariable]=\"firstName\"></validate-span>",
@@ -181,7 +181,7 @@ namespace JagiCoreTests
 
             string html = templateHandler.Generate(propertyRule);
             string[] lineOfHtml = html.Split('\n');
-            Assert.Equal(12, lineOfHtml.Length);
+            Assert.Equal(11, lineOfHtml.Length);
         }
 
         [Fact]
@@ -207,14 +207,12 @@ namespace JagiCoreTests
                 lineOfHtml[3]);
             Assert.Equal("			<input id=\"date\" name=\"Date\" class=\"form-control\" type=\"text\" ",
                 lineOfHtml[4]);
-            Assert.True(lineOfHtml[5].Contains("#date=\"ngModel\" pattern="));
-            Assert.True(lineOfHtml[5].Contains("required"));
-            Assert.Equal("				   [(ngModel)]=\"model.Date\" (blur)=\"model.Date = dateFormat(model.Date)\"   />",
+            Assert.Contains("#date=\"ngModel\" pattern=", lineOfHtml[5]);
+            Assert.Contains("required", lineOfHtml[5]);
+            Assert.Equal("				   [(ngModel)]=\"model.Date\" (blur)=\"model.Date = dateFormat(model.Date)\" />",
                 lineOfHtml[6]);
             Assert.Equal("			<my-datepicker [dateModel]=\"model.Date\" [controlVariable]=\"date\" (dateModelChange)=\"model.Date = $event\" class=\"input-group-btn\"></my-datepicker>",
                 lineOfHtml[7]);
-            Assert.Equal("		<validate-span [controlVariable]=\"date\"></validate-span>",
-                lineOfHtml[9]);
         }
 
         [Fact]
@@ -442,7 +440,7 @@ namespace JagiCoreTests
             Assert.True(html.Contains("				(ngModelChange)=\"onDropdownChange($event, 'Hospital'); model.ChildCode = '';\""));
             Assert.True(html.Contains("				[(ngModel)]=\"model.ChildCode\" #childCode=\"ngModel\""));
             Assert.True(html.Contains("#date=\"ngModel\" bsDatepicker #dbDate=\"bsDatepicker\" required"));
-            Assert.True(html.Contains("			   [(ngModel)]=\"model.FirstName\" tooltip=\"此為必須輸入的欄位，且不可以超過30個字\" [tooltipEnable]=\"firstName.invalid\""));
+            Assert.True(html.Contains("			   [(ngModel)]=\"model.FirstName\" "));
             Assert.True(html.Contains("		<input type=\"text\" id=\"firstName\" name=\"FirstName\"  class=\"form-control\""));
             Assert.True(html.Contains("<form-group [width]=\"4\" [controlVariable]=\"lastName\" [required]=\"false\">"));
             Assert.True(html.Contains("	<label class=\"control-label col-sm-6\" for=\"childCode\">ChildCode</label>"));

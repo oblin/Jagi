@@ -22,12 +22,12 @@ namespace JagiCore.Angular
         /// {2}: model name
         /// {3}: validations (所有檢驗的項目都放在一起)
         /// {4}: Label Name (display name)
-        /// {5}: Tooltip: validation message (所有錯誤訊息都放在一起）
+        /// {5}: Tooltip: validation message (所有錯誤訊息都放在一起）(暫時取消)
         /// {6}: form-group width
         /// {7}: label width
         /// {8}: control width
         /// {9}: placeholder="...."
-        /// {10}: Tooltip Enable: 設定何時要啟動 tooltip
+        /// {10}: Tooltip Enable: 設定何時要啟動 tooltip (暫時取消)
         /// </summary>
         public const string InputStringHtml =
             "<div class=\"form-group col-sm-{6} has-feedback required\" [ngClass]=\"{0}.dirty ? ({0}.valid ? 'has-success' : 'has-error') : ({0}.valid ? '' : 'has-warning')\">\n" +
@@ -35,8 +35,7 @@ namespace JagiCore.Angular
             "	<div class=\"col-sm-{8}\">\n" +
             "		<input type=\"number\" id=\"{0}\" name=\"{1}\" {9} class=\"form-control\"\n" +
             "			   #{0}=\"ngModel\" {3}\n" +
-            "			   [(ngModel)]=\"{2}.{1}\" {5} {10}\n" +
-            "		<validate-span [controlVariable]=\"{0}\"></validate-span>\n" +
+            "			   [(ngModel)]=\"{2}.{1}\" \n" +
             "	</div>\n" +
             "</div>";
     }
