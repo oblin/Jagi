@@ -25,5 +25,6 @@
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="2.1.1" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.5.0" />
     <PackageReference Include="AutoMapper" Version="7.0.1" />
+    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.0.8.12" />
   </ItemGroup>
 </Project>

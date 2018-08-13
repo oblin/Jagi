@@ -75,7 +75,7 @@ namespace JagiCore.Admin
         {
             var user = _userManager.GetUserAsync(_httpContext.HttpContext.User).Result;
             var roles = _userManager.GetRolesAsync(user).Result;
-            if (user.GroupCode.Length >= 8)
+            if (user.GroupCode.Length >= 10)
             {
                 if (_userManager.IsInRoleAsync(user, "User").Result)
                     return "1";
@@ -83,15 +83,15 @@ namespace JagiCore.Admin
                     return "2";
 
             }
-            else if (user.GroupCode.Length >= 6 && user.GroupCode.Length < 8)
+            else if (user.GroupCode.Length >= 8 && user.GroupCode.Length < 10)
             {
                 return "3";
             }
-            else if (user.GroupCode.Length >= 4 && user.GroupCode.Length < 6)
+            else if (user.GroupCode.Length >= 6 && user.GroupCode.Length < 8)
             {
                 return "4";
             }
-            else if (user.GroupCode.Length >= 2 && user.GroupCode.Length < 4)
+            else if (user.GroupCode.Length >= 2 && user.GroupCode.Length < 6)
             {
                 return "5";
             }

@@ -34,6 +34,9 @@ namespace JagiCore.Admin.Data
         }
 
         [NotMapped]
+        public string RefreshToken { get; set; }
+
+        [NotMapped]
         public List<Clinic> Clinics { get; set; }
     }
 }
