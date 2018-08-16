@@ -5,28 +5,44 @@ using JagiCore.Helpers;
 
 namespace JagiCore.Angular
 {
-    public class PropertyRule
+    public class PropertyRule : ValidationDefinitions
     {
-        public string Name { get; set; }
         public InputTag InputType { get; set; }
         public string DisplayName { get; set; }
         public string Prompt { get; set; }
         public string TemplateVariable { get { return this.Name.ToCamelCase(); } }
         public string Tooltip { get; set; }
-        public List<PropertyValidation> Validations { get; private set; }
         public string CodeMap { get; set; }
         public string CodeMapFor { get; set; }
         public string CodeMapForField { get; set; }
         public string ParentFieldName { get; set; }
-        public Dictionary<int, string> RadioOptions { get; set; }
+        public List<Option> RadioOptions { get; set; }
 
-        public PropertyRule(string name, InputTag inputType)
+        //public PropertyRule(string name, InputTag inputType)
+        //{
+        //    this.Name = name;
+        //    this.InputType = inputType;
+        //}
+    }
+
+    public class Option
+    {
+        public string Name { get; set; }
+        public int Value { get; set; }
+    }
+
+    public abstract class ValidationDefinitions
+    {
+        public ValidationDefinitions()
         {
-            this.Name = name;
-            this.InputType = inputType;
             Validations = new List<PropertyValidation>();
         }
 
+        /// <summary>
+        /// 欄位名稱
+        /// </summary>
+        public string Name { get; set; }
+        public List<PropertyValidation> Validations { get; protected set; }
         public void AddValidation(ValidationType type, params object[] args)
         {
             int value = args != null && args.Length > 0 ? Convert.ToInt32(args[0]) : 0;

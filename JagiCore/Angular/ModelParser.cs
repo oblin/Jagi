@@ -56,7 +56,9 @@ namespace JagiCore.Angular
                     continue;
 
                 InputTag inputType = GetPropertyInputType(property);
-                var propertyRule = new PropertyRule(property.Name, inputType);
+                var propertyRule = new PropertyRule();
+                propertyRule.Name = property.Name;
+                propertyRule.InputType = inputType;
 
                 if (IsRequired(property))
                     propertyRule.AddValidation(ValidationType.Required, null);
@@ -94,7 +96,12 @@ namespace JagiCore.Angular
         {
             if (property.PropertyType.GetTypeInfo().IsEnum)
             {
-                propertyRule.RadioOptions = TypeHelper.ToEnumDictionary(property.PropertyType);
+                var dict = TypeHelper.ToEnumDictionary(property.PropertyType);
+                propertyRule.RadioOptions = new List<Option>();
+                foreach(var item in dict)
+                {
+                    propertyRule.RadioOptions.Add(new Option { Name = item.Value, Value = item.Key });
+                }
             }
         }
 

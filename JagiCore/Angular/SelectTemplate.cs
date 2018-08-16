@@ -65,11 +65,18 @@ namespace JagiCore.Angular
             string parent = string.IsNullOrEmpty(property.ParentFieldName) 
                 ? string.Empty
                 : $" ,{property.ParentFieldName.First().ToString().ToLower()}" ;  // 讓第一個字元小寫
+            var getCode = "getCode";
+            var mapField = string.Empty;
+            if (!string.IsNullOrEmpty(property.CodeMapForField))
+            {
+                getCode = "getParentCode";
+                mapField = ", " + modelName + "." + property.CodeMapForField;
+            }
 
             return HTML.FormatWith(
                 templateVariable, fieldName, modelName, validationString,
                 labelName, code, formGroupWidth, labelWidth, controlWidth,
-                formGroupRequired);
+                formGroupRequired, getCode, mapField);
         }
 
         /// <summary>
@@ -83,15 +90,16 @@ namespace JagiCore.Angular
         /// {7}: label width
         /// {8}: control width
         /// {9}: form-group required class
-        /// {10}: parent-code
+        /// {10}: getCode: default, if CodeMapForField use: getParentCode
+        /// {11}: for CodeMapForField
         /// </summary>
         protected const string HTML =
             "<form-group [width]=\"{6}\" [controlVariable]=\"{0}\" [required]=\"{9}\">\n" +
             "	<label class=\"control-label col-sm-{7}\" for=\"{0}\">{4}</label>\n" +
             "	<div class=\"col-sm-{8}\">\n" +
-            "		<select class=\"form-control\" name=\"{1}\" id=\"{0}\" required\n" +
+            "		<select class=\"form-control\" name=\"{1}\" id=\"{0}\" \n" +
             "				[(ngModel)]=\"{2}.{1}\" #{0}=\"ngModel\"\n" +
-            "				code-options [codes]=\"getCode('{5}')\">\n" +
+            "				code-options [codes]=\"{10}('{5}'{11})\">\n" +
             "		</select>\n" +
             //     "		<validate-span [controlVariable]=\"{0}\"></validate-span>\n" + 移除 validate-span 因為改用 form-group 控制
             "	</div>\n" +

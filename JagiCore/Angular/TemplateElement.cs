@@ -79,11 +79,11 @@ namespace JagiCore.Angular
                 if (_type == InputTag.InputNumber)
                 {
                     if (validation.Type == ValidationType.MinValue){
-                        result = result.AppendSeperator($"min=\"{validation.Value}\"");             
+                        result = result.AppendSeperator($"intMin=\"{validation.Value}\"");             
                         message = message.AppendSeperator(validation.Message);       
                     } 
                     if (validation.Type == ValidationType.MaxValue){
-                        result = result.AppendSeperator($"max=\"{validation.Value}\"");
+                        result = result.AppendSeperator($"intMax=\"{validation.Value}\"");
                         message = message.AppendSeperator(validation.Message);                    
                     } 
                 }

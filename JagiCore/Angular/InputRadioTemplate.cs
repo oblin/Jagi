@@ -29,12 +29,12 @@ namespace JagiCore.Angular
             throw new ArgumentNullException("使用 Enum Type 但沒有 Radio Options");
         }
 
-        private string CreateRadioOptions(Dictionary<int, string> radioOptions)
+        private string CreateRadioOptions(List<Option> radioOptions)
         {
             var result = string.Empty;
             foreach(var item in radioOptions)
             {
-                result += RADIO_HTML.FormatWith(templateVariable, fieldName, modelName, item.Key, item.Value);
+                result += RADIO_HTML.FormatWith(templateVariable, fieldName, modelName, item.Value, item.Name);
             }
 
             return result;

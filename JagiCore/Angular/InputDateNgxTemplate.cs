@@ -48,9 +48,9 @@ namespace JagiCore.Angular
             "			<input id=\"{0}\" name=\"{1}\" class=\"form-control\" type=\"text\" {9}\n" +
             "				   #{0}=\"ngModel\" bsDatepicker #db{1}=\"bsDatepicker\" {3} \n" +
             "				   [ngModel]=\"{2}.{1}\" (ngModelChange)=\"{2}.{1} = dateFormat($event)\" />\n" +
-            "           <span class=\"input-group-btn\">" +
+            "           <span class=\"input-group-btn\"> \n" +
             "			    <button type=\"button\" (click)=\"db{1}.toggle()\" class=\"btn btn-default\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\n" +
-            "           </span>" +
+            "           </span> \n" +
             "		</div>\n" +
             //     "		<validate-span [controlVariable]=\"{0}\"></validate-span>\n" + 移除 validate-span 因為改用 form-group 控制
             "	</div>\n" +
