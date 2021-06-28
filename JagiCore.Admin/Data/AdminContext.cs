@@ -17,6 +17,7 @@ namespace JagiCore.Admin.Data
         public DbSet<CodeFile> CodeFiles { get; set; }
         public DbSet<CodeDetail> CodeDetails { get; set; }
         public DbSet<Clinic> Clinics { get; set; }
+        public DbSet<ClinicUsers> ClinicUsers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

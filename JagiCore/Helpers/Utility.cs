@@ -17,6 +17,18 @@ namespace JagiCore.Helpers
             return timer.Elapsed;
         }
 
+        public static string ConvertToUtf8(this string subject)
+        {
+            if (string.IsNullOrEmpty(subject))
+                return subject;
+
+            UTF8Encoding utf8 = new UTF8Encoding();
+
+            byte[] encodedBytes = utf8.GetBytes(subject);
+
+            return Convert.ToString(encodedBytes);
+        }
+
         public static string ConvertToUtf8(this byte[] bytes)
         {
             var byteUtf8Name = Encoding.Convert(Encoding.Default, Encoding.UTF8, bytes);

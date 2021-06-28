@@ -33,6 +33,11 @@ namespace JagiCore.Admin.Data
             }
         }
 
+        /// <summary>
+        /// For Workflow defined is user can approve
+        /// </summary>
+        public bool CanApproval { get; set; }
+
         [NotMapped]
         public string RefreshToken { get; set; }
 

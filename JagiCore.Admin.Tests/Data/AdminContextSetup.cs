@@ -39,7 +39,7 @@ namespace JagiCore.Admin.Tests.Data
 
             return new List<Clinic>
             {
-                new Clinic { Code = "0000", Name = "Test 1", EncryptPassword =  CertProvider.GetEncryptString(password) },
+                //new Clinic { Code = "0000", Name = "Test 1", EncryptPassword =  CertProvider.GetEncryptString(password) },
                 new Clinic { Code = "0001", Name = "Test 2" }
             };
         }

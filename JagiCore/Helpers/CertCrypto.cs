@@ -18,6 +18,17 @@ namespace JagiCore.Helpers
             _provider = cert.GetRSAPrivateKey();
         }
 
+        /// <summary>
+        /// 2020-1-10 因應使用 Linux 問題，無法再透過 憑證管理處理，改用目錄方式
+        /// </summary>
+        /// <param name="subjectName"></param>
+        public CertCrypto(string filepath, string password)
+        {
+            //X509Certificate2 cert = GetStoreKiditCert(subjectName);
+            X509Certificate2 cert = new X509Certificate2(filepath, password);
+            _provider = cert.GetRSAPrivateKey();
+        }
+
         public string GetDecryptString(byte[] encrypt)
         {
             // Add for update

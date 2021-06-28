@@ -6,7 +6,20 @@ namespace JagiCore.Admin
     public interface IUserResolverService
     {
         ApplicationUser GetUser();
+
+        /// <summary>
+        /// 使用者預設的 Clinics，這個跟 GetClinics 最大差異是不經由 Group TABLE 的定義，直接由 Clinic/診所 中設定
+        /// </summary>
+        List<Clinic> GetDefaultClinics();
+
+        /// <summary>
+        /// 由 Group 中所對應的取出 Clinics
+        /// </summary>
         List<Clinic> GetClinics();
+
+        /// <summary>
+        /// 由 Group 中所對應的取出 Clinics 會加入 Clinic 的設定（如果沒有時候）
+        /// </summary>
         List<string> GetClinicCodes();
 
         /// <summary>
@@ -18,6 +31,9 @@ namespace JagiCore.Admin
         /// <returns>1. Initial 2. Manager 3. Section Manager 4. Director</returns>
         string GetUserGroupLevel();
 
+        /// <summary>
+        /// 由 Group 中所對應的取出 Clinics 會加入 Clinic 的設定（如果沒有時候）
+        /// </summary>
         Dictionary<string, string> GetClinicCodeNames();
         IList<string> GetRoles();
 

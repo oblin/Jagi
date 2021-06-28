@@ -1,14 +1,11 @@
-﻿using JagiCore.Admin.Data;
+﻿using System.Collections.Generic;
+using System.Linq;
+using JagiCore.Admin.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JagiCore.Admin
 {
@@ -21,7 +18,7 @@ namespace JagiCore.Admin
         private readonly IConfiguration _configuration;
 
         public UserResolverService(UserManager<ApplicationUser> userManager,
-            IHttpContextAccessor httpContext, 
+            IHttpContextAccessor httpContext,
             AdminContext context,
             IMemoryCache cache,
             IConfiguration configuration)
@@ -33,6 +30,30 @@ namespace JagiCore.Admin
             _configuration = configuration;
         }
 
+        /// <summary>
+        /// 使用者預設的 Clinics，這個跟 GetClinics 最大差異是不經由 Group TABLE 的定義，直接由 Clinic/診所 中設定
+        /// </summary>
+        public List<Clinic> GetDefaultClinics()
+        {
+            if (_httpContext.HttpContext.User == null
+                || _httpContext.HttpContext.User.Identity == null
+                || !_httpContext.HttpContext.User.Identity.IsAuthenticated)
+                return null;
+            var user = _userManager.GetUserAsync(_httpContext.HttpContext.User).Result;
+
+            var clinics = new List<Clinic>();
+            foreach(var item in _context.ClinicUsers.Where(c => c.UserId == user.Id))
+            {
+                clinics.Add(_context.Clinics.Find(item.ClinicId));
+            }
+
+            return clinics;
+        }
+
+        /// <summary>
+        /// 取出 Group 中所對應的 Clinics
+        /// </summary>
+        /// <returns></returns>
         public List<Clinic> GetClinics()
         {
             var currentUser = GetUser();
@@ -41,7 +62,7 @@ namespace JagiCore.Admin
 
         public ApplicationUser GetUser()
         {
-            if (_httpContext.HttpContext.User == null 
+            if (_httpContext.HttpContext.User == null
                 || _httpContext.HttpContext.User.Identity == null
                 || !_httpContext.HttpContext.User.Identity.IsAuthenticated)
                 return null;
@@ -65,10 +86,14 @@ namespace JagiCore.Admin
 
         /// <summary>
         /// 依據使用者的 GroupCode 作為層級設定，目前 GroupCode 如下：
-        /// 01010101 -> 機構
-        /// 010101 -> 區經理，如果 User Role = User 則為 Initail 最低的使用者，否則為機構主管
-        /// 0101   -> 處長
-        /// 01     -> 部
+        ///              代碼長度
+        /// 總公司 :     0                  >1    總經理：不簽，與簽核無關
+        /// 長照部 :     01                 > 2,3 對應： 5 副總已審閱：目前最高的簽核層級無關
+        /// 長照處 :     0101               > 4,5 對應： 5 副總已審閱：應該是處長層級，但目前沒有這樣的職位，因此同樣是副總
+        /// 喬嵩蘭 :     010101             > 6,7 對應： 4 處主管已審閱
+        /// 八里區 :     01010105           > 8,9 對應： 3 區經理已審閱
+        /// 觀海 :       0101010501         > 1,  對應角色是 User, 代表： 1 初始填寫 
+        /// 八里佳醫 :   0101010502         > 2.  對應角色非 User，代表：2 主管已審閱 
         /// </summary>
         /// <returns>1. Initial 2. Manager 3. Section Manager 4. Director</returns>
         public string GetUserGroupLevel()
@@ -116,8 +141,17 @@ namespace JagiCore.Admin
             Dictionary<string, string> clinics = new Dictionary<string, string>();
             var user = GetUser();
             if (user != null && user.Clinics != null)
+            {
                 foreach (var clinic in user.Clinics)
                     clinics.Add(clinic.Code, clinic.Name);
+                // 04-03 Add for Sales Report
+                // 2019-07-18 TODO: This will cause Weekly Income Errors
+                foreach(var item in GetDefaultClinics())
+                {
+                    if (!clinics.Keys.Contains(item.Code))
+                        clinics.Add(item.Code, item.Name);
+                }
+            }
 
             return clinics;
         }

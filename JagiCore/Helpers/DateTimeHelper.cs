@@ -69,6 +69,9 @@ namespace JagiCore.Helpers
             if (string.IsNullOrEmpty(dateString) || dateString.Length != 7)
                 return null;
 
+            if (dateString.Contains('/'))
+                return null;
+
             int year = Convert.ToInt16(dateString.Substring(0, 3)) + 1911;
             int month = Convert.ToInt16(dateString.Substring(3, 2));
             int day = Convert.ToInt16(dateString.Substring(5, 2));

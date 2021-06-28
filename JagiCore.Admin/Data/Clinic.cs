@@ -19,6 +19,8 @@ namespace JagiCore.Admin.Data
         [Column("DatabasePassword")]
         public byte[] EncryptDatabasePassword { get; set; }
 
+        public string Telephone { get; set; }
+
         /// <summary>
         /// 資料庫登入帳號的密碼（對應 DatabaseUser）
         /// </summary>
